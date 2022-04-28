@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "properties": {
+        "description": "func-authdemo",
+        "resourceId": "https://management.azure.com/subscriptions/d71d2ffc-d359-4eb8-b659-31e2762cf742/resourceGroups/rg-apimdemos-auth/providers/Microsoft.Web/sites/func-authdemo",
+        "credentials": {
+          "header": {
+            "x-functions-key": [
+              "{{func-authdemo-key}}"
+            ]
+          }
+        },
+        "url": "https://func-authdemo.azurewebsites.net/api",
+        "protocol": "http"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/func-authdemo')]",
+      "type": "Microsoft.ApiManagement/service/backends",
+      "apiVersion": "2021-01-01-preview"
+    }
+  ]
+}
