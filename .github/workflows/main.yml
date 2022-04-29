@@ -14,16 +14,16 @@ on:
 jobs:
   prepare:
     runs-on: ubuntu-latest
-
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Check Out Repo
         uses: actions/checkout@v3
-
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Upload Templates
+        uses: actions/upload-artifact@v3
+        with: 
+          name: templates
+          path: .
 
   deploy-dev:
     runs-on: ubuntu-latest
@@ -31,6 +31,19 @@ jobs:
     needs: prepare
 
     steps:
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Download Templates
+        uses: actions/download-artifact@v3
+        with: 
+          name: templates
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
       - name: Deploy Azure Resource Manager (ARM) Template
         uses: Azure/arm-deploy@v1.0.8
         with:
