@@ -24,6 +24,17 @@
       "name": "[concat(parameters('ApimServiceName'), '/func-authdemo')]",
       "type": "Microsoft.ApiManagement/service/backends",
       "apiVersion": "2021-01-01-preview"
+    },
+    {
+      "properties": {
+        "description": "todoAPIdemo-mshah",
+        "resourceId": "https://management.azure.com/subscriptions/d71d2ffc-d359-4eb8-b659-31e2762cf742/resourceGroups/rg-apimdemos-integration/providers/Microsoft.Web/sites/todoAPIdemo-mshah",
+        "url": "https://todoapidemo-mshah.azurewebsites.net",
+        "protocol": "http"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/WebApp_todoapidemo-mshah')]",
+      "type": "Microsoft.ApiManagement/service/backends",
+      "apiVersion": "2021-01-01-preview"
     }
   ]
 }
