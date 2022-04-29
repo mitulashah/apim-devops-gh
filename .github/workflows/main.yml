@@ -51,6 +51,7 @@ jobs:
           template: ./apimdevops-dev-products.template.json
           # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
           deploymentMode: validate
+          parameters: ./apimdevops-dev-parameters.json
 
   deploy-qa:
     runs-on: ubuntu-latest
