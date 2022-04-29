@@ -11,6 +11,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  ARM_DEPLOY_MODE: validate
+
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -41,16 +44,70 @@ jobs:
         with: 
           name: templates
 
-      - name: Display structure of downloaded files
+      - name: Validate Template Files Structure
         run: ls -R
 
-      - name: Deploy Azure Resource Manager (ARM) Template
+      - name: Deploy Products Template
         uses: Azure/arm-deploy@v1.0.8
         with:
           resourceGroupName: rg-apimdemos-devops
           template: ./apimdevops-dev-products.template.json
           # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
-          deploymentMode: validate
+          deploymentMode: ${{env.ARM_DEPLOY_MODE}}
+          parameters: ./apimdevops-dev-parameters.json
+
+      - name: Deploy Tags Template
+        uses: Azure/arm-deploy@v1.0.8
+        with:
+          resourceGroupName: rg-apimdemos-devops
+          template: ./apimdevops-dev-apiTags.template.json
+          # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
+          deploymentMode: ${{env.ARM_DEPLOY_MODE}}
+          parameters: ./apimdevops-dev-parameters.json
+
+      - name: Deploy Named Values Template
+        uses: Azure/arm-deploy@v1.0.8
+        with:
+          resourceGroupName: rg-apimdemos-devops
+          template: ./apimdevops-dev-namedValues.template.json
+          # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
+          deploymentMode: ${{env.ARM_DEPLOY_MODE}}
+          parameters: ./apimdevops-dev-parameters.json
+
+      - name: Deploy Backends Template
+        uses: Azure/arm-deploy@v1.0.8
+        with:
+          resourceGroupName: rg-apimdemos-devops
+          template: ./apimdevops-dev-backends.template.json
+          # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
+          deploymentMode: ${{env.ARM_DEPLOY_MODE}}
+          parameters: ./apimdevops-dev-parameters.json
+
+      - name: Deploy APIs Template
+        uses: Azure/arm-deploy@v1.0.8
+        with:
+          resourceGroupName: rg-apimdemos-devops
+          template: ./apimdevops-dev-apis.template.json
+          # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
+          deploymentMode: ${{env.ARM_DEPLOY_MODE}}
+          parameters: ./apimdevops-dev-parameters.json
+      
+      - name: Deploy Product / API Association Template
+        uses: Azure/arm-deploy@v1.0.8
+        with:
+          resourceGroupName: rg-apimdemos-devops
+          template: ./apimdevops-dev-productAPIs.template.json
+          # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
+          deploymentMode: ${{env.ARM_DEPLOY_MODE}}
+          parameters: ./apimdevops-dev-parameters.json
+
+      - name: Deploy Global Policy Template
+        uses: Azure/arm-deploy@v1.0.8
+        with:
+          resourceGroupName: rg-apimdemos-devops
+          template: ./apimdevops-dev-globalServicePolicy.template.json
+          # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
+          deploymentMode: ${{env.ARM_DEPLOY_MODE}}
           parameters: ./apimdevops-dev-parameters.json
 
   deploy-qa:
