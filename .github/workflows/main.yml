@@ -60,7 +60,7 @@ jobs:
         uses: Azure/arm-deploy@v1.0.8
         with:
           resourceGroupName: rg-apimdemos-devops
-          template: ./apimdevops-dev-apiTags.template.json
+          template: ./apimdevops-dev-tags.template.json
           # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
           deploymentMode: ${{env.ARM_DEPLOY_MODE}}
           parameters: ./apimdevops-dev-parameters.json
@@ -97,6 +97,15 @@ jobs:
         with:
           resourceGroupName: rg-apimdemos-devops
           template: ./apimdevops-dev-productAPIs.template.json
+          # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
+          deploymentMode: ${{env.ARM_DEPLOY_MODE}}
+          parameters: ./apimdevops-dev-parameters.json
+
+      - name: Deploy API / Tags Association Template
+        uses: Azure/arm-deploy@v1.0.8
+        with:
+          resourceGroupName: rg-apimdemos-devops
+          template: ./apimdevops-dev-apiTags.template.json
           # Incremental (only add resources to resource group) or Complete (remove extra resources from resource group) or Validate (only validates the template).
           deploymentMode: ${{env.ARM_DEPLOY_MODE}}
           parameters: ./apimdevops-dev-parameters.json
