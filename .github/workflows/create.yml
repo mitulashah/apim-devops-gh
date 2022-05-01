@@ -16,13 +16,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
     - uses: actions/checkout@v3
     - name: Download Extractor Release
       run: |
         mkdir extractor
         cd extractor
-        gh auth login --with-token ${{ secrets.GH_TOKEN }}
+        gh auth login
         gh release download latest --repo 'Azure/azure-api-management-devops-resource-kit'
     - name: Validate Template Files Structure
       run: ls -R
