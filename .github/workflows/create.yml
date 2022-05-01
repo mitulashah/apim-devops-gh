@@ -1,0 +1,40 @@
+name: Generate Pull Request
+
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      instance-name:
+        description: 'Name of source APIM instance'
+        default: 'apim-'
+        required: true
+      resource-group-name:
+        description: 'Name of resource group'
+        default: "rg-"
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Download Extractor Release
+      run: |
+        md extractor
+        cd extractor
+        gh release download latest --repo 'Azure/azure-api-management-devops-resource-kit'
+    - name: Validate Template Files Structure
+      run: ls -R
+    
+    #- name: Setup .NET
+    #  uses: actions/setup-dotnet@v2
+    #  with:
+    #    dotnet-version: 5.0.x
+
+    
+    #- name: Restore dependencies
+    #  run: dotnet restore
+    #- name: Build
+    #  run: dotnet build --no-restore
+    #- name: Test
+    #  run: dotnet test --no-build --verbosity normal
