@@ -22,6 +22,7 @@ jobs:
       run: |
         mkdir extractor
         cd extractor
+        gh auth login --with-token ${{ secrets.GH_TOKEN }}
         gh release download latest --repo 'Azure/azure-api-management-devops-resource-kit'
     - name: Validate Template Files Structure
       run: ls -R
