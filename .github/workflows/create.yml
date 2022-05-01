@@ -22,7 +22,7 @@ jobs:
       run: |
         mkdir extractor
         cd extractor
-        gh release download latest --repo 'Azure/azure-api-management-devops-resource-kit'
+        gh release download 1.0.0-beta.1 --repo 'Azure/azure-api-management-devops-resource-kit'
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     - name: Unzip
