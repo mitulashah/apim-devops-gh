@@ -30,6 +30,7 @@ jobs:
         cd src 
         cd ArmTemplates
         dotnet restore
+        dotnet build
         dotnet pack -c Release
         dotnet tool install -g --add-source .\bin\Release ArmTemplates
         apim-templates extract
