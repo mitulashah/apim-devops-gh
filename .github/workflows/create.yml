@@ -25,6 +25,10 @@ jobs:
         gh release download 1.0.0-beta.3 --repo 'Azure/azure-api-management-devops-resource-kit' --archive=zip
         ls -R
         unzip -q azure-api-management-devops-resource-kit-1.0.0-beta.3 -d ./src
+        cd src
+        cd azure-api-management-devops-resource-kit-1.0.0-beta.3
+        dotnet restore
+        dotnet run extract
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     - name: Validate Template Files Structure
