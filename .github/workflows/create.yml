@@ -23,12 +23,9 @@ jobs:
         mkdir extractor
         cd extractor
         gh release download 1.0.0-beta.1 --repo 'Azure/azure-api-management-devops-resource-kit'
+        unzip reskit-1.0.0-beta.1.zip 
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-    - name: Unzip
-      uses: montudor/action-zip@v1
-      with:
-        args: unzip -qq reskit-1.0.0-beta.1.zip -d .
     - name: Validate Template Files Structure
       run: ls -R
     
