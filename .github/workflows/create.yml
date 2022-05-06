@@ -23,7 +23,8 @@ jobs:
         mkdir extractor
         cd extractor
         gh release download 1.0.0-beta.1 --repo 'Azure/azure-api-management-devops-resource-kit'
-        unzip reskit-1.0.0-beta.1.zip 
+        unzip reskit-1.0.0-beta.1.zip
+        ./ArmTemplates
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     - name: Validate Template Files Structure
