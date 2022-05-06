@@ -27,8 +27,12 @@ jobs:
         unzip -q azure-api-management-devops-resource-kit-1.0.0-beta.3 -d ./src
         cd src
         cd azure-api-management-devops-resource-kit-1.0.0-beta.3
+        cd src 
+        cd ArmTemplates
         dotnet restore
-        dotnet run extract
+        dotnet pack -c Release
+        dotnet tool install -g --add-source .\bin\Release ArmTemplates
+        apim-templates extract
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     - name: Validate Template Files Structure
