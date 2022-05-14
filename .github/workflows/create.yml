@@ -8,6 +8,10 @@ on:
         description: 'Name of source APIM instance'
         default: 'apim-'
         required: true
+      destination-name:
+        description: 'Name of destination APIM instance'
+        default: 'apim-'
+        required: true
       resource-group-name:
         description: 'Name of resource group'
         default: "rg-"
@@ -29,28 +33,18 @@ jobs:
         gh release download 1.0.0-beta.3 --repo 'Azure/azure-api-management-devops-resource-kit' --archive=zip
         ls -R
         unzip -q azure-api-management-devops-resource-kit-1.0.0-beta.3 -d ./src
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    - name: Build Extractor Release
+      run: |
         cd src
         cd azure-api-management-devops-resource-kit-1.0.0-beta.3
         cd src 
         cd ArmTemplates
         dotnet build --configuration Release
-        echo "Listing files..."
-        ls -R
-        dotnet run extract --sourceApimName apimdevops-dev --destinationApimName apimdevops-qa --resourceGroup rg-apimdemos-devops --fileFolder .
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    - name: Run Extractor
+      run: |
+        mkdir prTemplates
+        dotnet run extract --sourceApimName ${{ github.event.inputs.instance-name }} --destinationApimName ${{ github.event.inputs.destination-name }} --resourceGroup ${{ github.event.inputs.resource-group-name }} --fileFolder ./prTemplates
     - name: Validate Template Files Structure
       run: ls -R
-    
-    #- name: Setup .NET
-    #  uses: actions/setup-dotnet@v2
-    #  with:
-    #    dotnet-version: 5.0.x
-
-    
-    #- name: Restore dependencies
-    #  run: dotnet restore
-    #- name: Build
-    #  run: dotnet build --no-restore
-    #- name: Test
-    #  run: dotnet test --no-build --verbosity normal
