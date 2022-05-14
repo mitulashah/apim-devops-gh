@@ -24,7 +24,6 @@
         "serviceUrl": "https://calcapi.cloudapp.net/api",
         "path": "calc",
         "protocols": [
-          "http",
           "https"
         ]
       },

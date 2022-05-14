@@ -4,6 +4,17 @@
   "parameters": {
     "ApimServiceName": {
       "value": "apimdevops-qa"
+    },
+    "NamedValues": {
+      "value": {
+        "funcauthdemokey": null,
+        "TimeNow": "@(DateTime.Now.ToString())"
+      }
+    },
+    "NamedValueKeyVaultSecrets": {
+      "value": {
+        "myAPISecret": "https://kvapimdevops.vault.azure.net/secrets/mySeccret"
+      }
     }
   },
   "resources": []

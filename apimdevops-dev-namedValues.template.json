@@ -4,9 +4,28 @@
   "parameters": {
     "ApimServiceName": {
       "type": "string"
+    },
+    "NamedValues": {
+      "type": "object"
+    },
+    "NamedValueKeyVaultSecrets": {
+      "type": "object"
     }
   },
   "resources": [
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "api-secret",
+        "keyVault": {
+          "secretIdentifier": "[parameters('NamedValueKeyVaultSecrets').myAPISecret]"
+        }
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/myAPISecret')]",
+      "type": "Microsoft.ApiManagement/service/namedValues",
+      "apiVersion": "2021-01-01-preview"
+    },
     {
       "properties": {
         "tags": [
@@ -15,7 +34,8 @@
           "auto"
         ],
         "secret": true,
-        "displayName": "func-authdemo-key"
+        "displayName": "func-authdemo-key",
+        "value": "[parameters('NamedValues').funcauthdemokey]"
       },
       "name": "[concat(parameters('ApimServiceName'), '/func-authdemo-key')]",
       "type": "Microsoft.ApiManagement/service/namedValues",
@@ -26,7 +46,7 @@
         "tags": [],
         "secret": false,
         "displayName": "TimeNow",
-        "value": "@(DateTime.Now.ToString())"
+        "value": "[parameters('NamedValues').TimeNow]"
       },
       "name": "[concat(parameters('ApimServiceName'), '/TimeNow')]",
       "type": "Microsoft.ApiManagement/service/namedValues",
