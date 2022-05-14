@@ -29,7 +29,8 @@ jobs:
         cd azure-api-management-devops-resource-kit-1.0.0-beta.3
         cd src 
         cd ArmTemplates
-        dotnet build
+        dotnet build --configuration Release
+        echo "Listing files..."
         ls -R
         dotnet pack -c Release
         dotnet tool install -g --add-source .\bin\Release ArmTemplates
