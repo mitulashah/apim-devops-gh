@@ -18,6 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Download Extractor Release
       run: |
         mkdir extractor
@@ -32,7 +36,7 @@ jobs:
         dotnet build --configuration Release
         echo "Listing files..."
         ls -R
-        dotnet run extract --sourceApimName apimdevops-dev --destinationApimName apimdevops-q --resourceGroup rg-apimdemos-devops --fileFolder .
+        dotnet run extract --sourceApimName apimdevops-dev --destinationApimName apimdevops-qa --resourceGroup rg-apimdemos-devops --fileFolder .
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     - name: Validate Template Files Structure
