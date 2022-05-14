@@ -37,6 +37,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     - name: Build Extractor Release
       run: |
+        cd extractor
         cd src
         cd azure-api-management-devops-resource-kit-1.0.0-beta.3
         cd src 
@@ -44,6 +45,11 @@ jobs:
         dotnet build --configuration Release
     - name: Run Extractor
       run: |
+        cd extractor
+        cd src
+        cd azure-api-management-devops-resource-kit-1.0.0-beta.3
+        cd src
+        cd ArmTemplates
         mkdir prTemplates
         dotnet run extract --sourceApimName ${{ github.event.inputs.instance-name }} --destinationApimName ${{ github.event.inputs.destination-name }} --resourceGroup ${{ github.event.inputs.resource-group-name }} --fileFolder ./prTemplates
     - name: Validate Template Files Structure
