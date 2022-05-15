@@ -61,6 +61,8 @@ jobs:
       id: cpr
       uses: peter-evans/create-pull-request@v4
       with:
+        add-paths: |
+          **/prTemplates
         token: ${{ secrets.GH_TOKEN }}
         commit-message: New API pull from DEV
         committer: GitHub <noreply@github.com>
@@ -68,7 +70,7 @@ jobs:
         signoff: false
         branch: dev-patches
         delete-branch: true
-        title: '[Example] New API pull from DEV'
+        title: '[Automated] New API pull from DEV'
         body: |
           Pull API extract from DEV
           - Updated with *today's* date
@@ -82,5 +84,4 @@ jobs:
         team-reviewers: |
           owners
           maintainers
-        milestone: 1
         draft: false
