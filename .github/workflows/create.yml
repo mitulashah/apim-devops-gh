@@ -62,7 +62,7 @@ jobs:
       uses: peter-evans/create-pull-request@v4
       with:
         add-paths: |
-          **/prTemplates
+          **/prTemplates/*.json
         token: ${{ secrets.GH_TOKEN }}
         commit-message: New API pull from DEV
         committer: GitHub <noreply@github.com>
