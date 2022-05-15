@@ -6,15 +6,15 @@ on:
     inputs:
       instance-name:
         description: 'Name of source APIM instance'
-        default: 'apim-'
+        default: 'apimdevops-dev'
         required: true
       destination-name:
         description: 'Name of destination APIM instance'
-        default: 'apim-'
+        default: 'apimdevops-qa'
         required: true
       resource-group-name:
         description: 'Name of resource group'
-        default: "rg-"
+        default: "rg-apimdemos-devops"
         required: true
 
 jobs:
